@@ -1,0 +1,16 @@
+{
+  "name": "InternSetu – PM Internship Scheme (MCA)",
+  "short_name": "InternSetu",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#0052A5",
+  "icons": [
+    {
+      "src": "/placeholder.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
