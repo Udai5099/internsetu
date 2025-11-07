@@ -4,19 +4,26 @@ const Connectdb = require("./src/config/dbconfig");
 const cors = require('cors'); 
 const app = express();
 
+dotenv.config();
 Connectdb();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const corsOptions = {
-    origin: 'http://localhost:5173', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-};
-app.use(cors(corsOptions));
+// ✅ Dynamic CORS for local + Render
+const allowedOrigins = [
+  'http://localhost:5173',
+  process.env.CLIENT_URL  // <-- for your deployed frontend
+];
 
 app.use(cors({
-  origin: "http://localhost:5173", 
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
 }));
 
@@ -28,6 +35,8 @@ app.use("/api/internships", require("./src/routes/internshipRoutes"));
 app.use("/api/applications", require("./src/routes/applicationRoutes"));
 app.use("/api/profile", require("./src/routes/profileRoutes"));
 
-
+// ✅ Render sets PORT automatically
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`🚀 Server running on port ${PORT}`)
+);
