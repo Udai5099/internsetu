@@ -1,15 +1,19 @@
 const mongoose = require("mongoose");
-const { ATLAS_DB_URL } = require("./serverconfig");
-
 
 async function Connectdb() {
   try {
-    await mongoose.connect(ATLAS_DB_URL, {
+    const uri = process.env.MONGO_URI;
+
+    if (!uri) {
+      throw new Error("MONGO_URI is missing (undefined)");
+    }
+
+    await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       ssl: true,
-      
     });
+
     console.log("✅ Database connected successfully");
   } catch (error) {
     console.error("❌ Database connection failed");
