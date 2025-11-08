@@ -8,9 +8,10 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 5173,
+    allowedHosts: ["internsetu-4.onrender.com"],
     fs: {
       allow: [
-        ".",          // 👈 allow project root so root index.html works
+        ".",          
         "./client",
         "./shared"
       ],

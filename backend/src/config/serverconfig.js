@@ -4,5 +4,4 @@ dotenv.config();
 
 module.exports={
     PORT:process.env.PORT || 3000,
-    ATLAS_DB_URL:process.env.MONGO_URI
 }
