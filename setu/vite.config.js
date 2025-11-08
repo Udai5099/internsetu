@@ -5,10 +5,13 @@ import { createServer } from "./server";
 
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "::",
+    host: "0.0.0.0",
     port: 5173,
 
-    allowedHosts: ["internsetu-3.onrender.com"],
+    allowedHosts: [
+      "internsetu-3.onrender.com", // backend
+      "internsetu-4.onrender.com"  // frontend
+    ],
 
     fs: {
       allow: [
@@ -19,10 +22,17 @@ export default defineConfig(({ mode }) => ({
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
     },
   },
+
   build: {
     outDir: "dist/spa",
   },
-  plugins: [react(), expressPlugin()],
+
+  plugins: [
+    react(),
+    // ✅ Express plugin ONLY for dev
+    mode === "development" ? expressPlugin() : null
+  ],
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./client"),
@@ -32,7 +42,7 @@ export default defineConfig(({ mode }) => ({
   },
 }));
 
-function expressPlugin(): Plugin {
+function expressPlugin() {
   return {
     name: "express-plugin",
     apply: "serve",
