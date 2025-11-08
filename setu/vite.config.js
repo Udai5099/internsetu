@@ -6,7 +6,6 @@ import { createServer } from "./server";
 export default defineConfig(({ mode }) => ({
   server: {
     host: "0.0.0.0",
-    port: 5173,
 
     allowedHosts: [
       "internsetu-3.onrender.com", // backend
