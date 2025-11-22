@@ -41,7 +41,7 @@ export default function LoginSignup() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
 
-    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000/api";
+    const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
     const endpoint = isLogin
       ? `${API_BASE_URL}/auth/login`
       : `${API_BASE_URL}/auth/register`;

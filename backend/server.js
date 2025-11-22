@@ -12,7 +12,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // ✅ Dynamic CORS for local + Render
 const allowedOrigins = [
-  'http://localhost:5173',
   process.env.CLIENT_URL  // <-- for your deployed frontend
 ];
 
