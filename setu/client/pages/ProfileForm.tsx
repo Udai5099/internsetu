@@ -62,7 +62,7 @@ export default function ProfileForm() {
       const token = getCookie("auth_token");
 
       // Call backend API
-      const res = await fetch("http://localhost:5000/api/profile", {
+      const res = await fetch("https://internsetu-3.onrender.com/api/profile", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`, // ✅ token now works
