@@ -71,7 +71,7 @@ app.use(cors({
     credentials: true,
 }));
 
-app.use(cros());
+app.use(cors());
 
 
 // Test route
