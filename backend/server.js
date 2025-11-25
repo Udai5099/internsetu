@@ -61,18 +61,17 @@ Connectdb();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ✅ FIXED CORS FOR RENDER (Frontend + Backend different domains)
-app.use(cors({
-    origin: "https://internsetu-4.onrender.com",   // your actual frontend domain
+// ✅ FIXED CORS FOR RENDER (Frontend + Backend different domains
+// ✅ Allow OPTIONS requests for ALL routes (important for login)
+    origin: "https://internsetu-4.onrender.com",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
-    preflightContinue: false,
-    optionsSuccessStatus: 200
 }));
 
-// ✅ Allow OPTIONS requests for ALL routes (important for login)
-app.options("*", cors());
+// Express 5-safe wildcard OPTIONS handler
+app.options("/*", cors());
+
 
 // Test route
 app.get('/', (req, res) => res.send('API is running...'));
