@@ -11,10 +11,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ✅ Dynamic CORS for local + Render
-const allowedOrigins = [
-  'http://localhost:5173',
-  process.env.CLIENT_URL  // <-- for your deployed frontend
-];
+//const allowedOrigins = [
+//  'http://localhost:5173',
+//  process.env.CLIENT_URL  // <-- for your deployed frontend
+//
+/*];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -26,6 +27,12 @@ app.use(cors({
   },
   credentials: true,
 }));
+*/
+app.use(cors({
+    origin: "https://internsetu-4.onrender.com",  // your frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}))
 
 app.get('/', (req, res) => res.send('API is running...'));
 
