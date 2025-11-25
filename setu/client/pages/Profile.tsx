@@ -35,8 +35,7 @@ export default function StudentProfile() {
           return;
         }
 
-        const res = await fetch(`https://internsetu-3.onrender.com/api
-/profile/${userId}`);
+        const res = await fetch(`https://internsetu-3.onrender.com/api/profile/${userId}`);
         if (!res.ok) throw new Error("Failed to fetch profile");
 
         const profile = await res.json();
