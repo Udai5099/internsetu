@@ -62,6 +62,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ✅ FIXED CORS FOR RENDER (Frontend + Backend different domains
+
+app.use(cors({
 // ✅ Allow OPTIONS requests for ALL routes (important for login)
     origin: "https://internsetu-4.onrender.com",
     methods: ["GET", "POST", "PUT", "DELETE"],
