@@ -71,8 +71,7 @@ app.use(cors({
     credentials: true,
 }));
 
-// Express 5-safe wildcard OPTIONS handler
-app.options("/*", cors());
+app.use(cros());
 
 
 // Test route
