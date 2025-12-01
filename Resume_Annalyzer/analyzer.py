@@ -97,33 +97,32 @@ def generate_gemini_recommendations(resume_text: str) -> Dict[str, Any]:
             return {}
         
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-1.5-flash')
-        
+        model = genai.GenerativeModel("gemini-1.5-flash")
+
         prompt = f"""
-        Act as an expert career coach. Analyze the following resume text.
-        <resume_text>{resume_text}</resume_text>
-        Provide:
-        1. A concise summary paragraph (2-3 sentences) evaluating the candidate's profile.
-        2. A list of 3-4 suitable job titles or career paths.
-        3. A list of 3-4 specific skills or technologies the person should learn to improve.
+        Act as an expert career coach.
+        Analyze this resume text:
+
+        {resume_text}
+
+        Return ONLY valid JSON in this exact format:
+
+        {{
+          "summaryParagraph": "string",
+          "jobRecommendations": ["string", "string", "string"],
+          "learningSuggestions": ["string", "string", "string"]
+        }}
         """
-        response = model.generate_content(
-            prompt,
-            generation_config=genai.types.GenerationConfig(
-                response_mime_type="application/json",
-                response_schema={
-                    "type": "OBJECT", "properties": {
-                        "summaryParagraph": {"type": "STRING"},
-                        "jobRecommendations": {"type": "ARRAY", "items": {"type": "STRING"}},
-                        "learningSuggestions": {"type": "ARRAY", "items": {"type": "STRING"}}
-                    }
-                }
-            )
-        )
-        return json.loads(response.text) if response.text else {}
+
+        response = model.generate_content(prompt)
+
+        raw = response.text or "{}"
+        return json.loads(raw)
+
     except Exception as e:
         st.error(f"Error calling Gemini API: {e}")
         return {}
+
 
 def full_analysis_pipeline(uploaded_file: UploadedFile) -> Dict[str, Any]:
     result = {'success': False, 'error_message': None}
